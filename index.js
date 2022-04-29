@@ -32,6 +32,7 @@ async function run() {
     try {
         await client.connect();
         const serviceCollection = client.db('geniusCar').collection('service');
+        const orderCollection = client.db('geniusCar').collection('orderCollection');
         app.get('/service', async (req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
@@ -54,6 +55,20 @@ async function run() {
             const query = {_id: ObjectId(id)};
             const result = await serviceCollection.deleteOne(query);
             res.send(result);
+        })
+        //Order collection api
+        app.post('/order',async(req,res)=>{
+            const Order = req.body;
+            const result = await orderCollection.insertOne(Order);
+            res.send(result);
+        })
+
+        app.get('/order',async (req,res)=>{
+            const email = req.query.email;
+            const query = {email : email};
+            const cursor = orderCollection.find(query);
+            const orders = await cursor.toArray();
+            res.send(orders);
         })
     }
     finally {
