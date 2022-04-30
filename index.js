@@ -34,7 +34,6 @@ function verifyJWT(req, res, next) {
         next();
         //this next should be inside
     })
-    // console.log('inside verify jwt',authHeader);
 }
 
 
@@ -86,7 +85,7 @@ async function run() {
             const result = await serviceCollection.deleteOne(query);
             res.send(result);
         })
-        //Order collection api
+        //Order collection api here
         app.post('/order', async (req, res) => {
             const Order = req.body;
             const result = await orderCollection.insertOne(Order);
