@@ -32,6 +32,7 @@ function verifyJWT(req, res, next) {
         console.log('decoded', decoded);
         req.decoded = decoded;
         next();
+        //this next should be inside
     })
     // console.log('inside verify jwt',authHeader);
 }
@@ -111,14 +112,6 @@ async function run() {
     }
 };
 run().catch(console.dir);
-
-
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   console.log('Genius Car DB Connected');
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 
 app.listen(port, () => {
